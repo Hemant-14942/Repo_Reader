@@ -1,0 +1,29 @@
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+
+# Environment files
+.env
+.env.*
+
+
+# IDE / editor
+.idea/
+.vscode/
+
+# Python tooling
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Cursor local files
+.cursor/

@@ -1,0 +1,6 @@
+fastapi
+uvicorn[standard]
+pydantic
+GitPython
+pathspec
+httpx2
