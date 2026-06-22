@@ -65,18 +65,44 @@ Copy `backend/.env.example` to `backend/.env` and `backend/.env.local` for local
 
 ## Production deployment
 
+### Render (backend)
+
+Use these values in the Render **New Web Service** form:
+
+| Field | Value |
+| --- | --- |
+| Root Directory | `backend` |
+| Build Command | `pip install -r requirements.txt` |
+| Start Command | `uvicorn app.main:app --host 0.0.0.0 --port $PORT` |
+| Health Check Path | `/health` |
+
+Do **not** use `gunicorn your_application.wsgi` — that is a Django template. Repo Reader uses FastAPI + Uvicorn.
+
+After deploy, add environment variables in Render:
+
+```env
+ENVIRONMENT=production
+CORS_ORIGINS=https://your-frontend.vercel.app
+```
+
+Replace the URL with your real frontend domain. Render sets `$PORT` automatically — do not hardcode `8000` in production.
+
+You can also use the included `render.yaml` blueprint at the repo root.
+
+### Frontend + backend together
+
 Typical split deployment:
 
-1. Deploy FastAPI backend (Railway, Render, Fly.io, etc.)
-2. Deploy Next.js frontend (Vercel, Netlify, etc.)
+1. Deploy FastAPI backend on Render (or Railway, Fly.io, etc.)
+2. Deploy Next.js frontend on Vercel (or Netlify, etc.)
 3. Set frontend env:
    ```env
-   NEXT_PUBLIC_API_BASE_URL=https://api.your-domain.com
+   NEXT_PUBLIC_API_BASE_URL=https://your-service.onrender.com
    ```
 4. Set backend env:
    ```env
    ENVIRONMENT=production
-   CORS_ORIGINS=https://app.your-domain.com
+   CORS_ORIGINS=https://your-frontend.vercel.app
    ```
 
 Restart/redeploy both services after changing environment variables.
