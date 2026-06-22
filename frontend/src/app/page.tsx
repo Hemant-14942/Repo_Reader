@@ -7,12 +7,10 @@ import {
   CONTEXT_MODE_OPTIONS,
   resolveContextModeLabel,
 } from "@/lib/context-mode";
+import { getApiUrl } from "@/lib/config";
 import { formatBytes } from "@/lib/format";
 import { loadRepoContext, saveRepoContext } from "@/lib/repo-context";
 import type { ContextMode, IngestResponse } from "@/lib/types";
-
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
 
 function explainSkipReason(reason: string) {
   const reasons: Record<string, string> = {
@@ -161,7 +159,7 @@ export default function Home() {
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/ingest`, {
+      const response = await fetch(getApiUrl("/ingest"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

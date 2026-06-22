@@ -4,12 +4,10 @@ import Link from "next/link";
 import { FormEvent, useMemo, useState } from "react";
 
 import { CONTEXT_MODE_META, resolveContextMode, resolveContextModeLabel, resolveContextSizeBytes } from "@/lib/context-mode";
+import { getApiUrl } from "@/lib/config";
 import { formatBytes, formatCharCount } from "@/lib/format";
 import { loadRepoContext } from "@/lib/repo-context";
 import type { ChatMessage, IngestResponse, LLMProvider } from "@/lib/types";
-
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
 
 const PROVIDER_MODELS: Record<LLMProvider, string[]> = {
   openai: ["gpt-4o-mini", "gpt-4o", "gpt-4.1-mini"],
@@ -145,7 +143,7 @@ export default function AskAIPage() {
     setQuestion("");
 
     try {
-      const response = await fetch(`${API_BASE_URL}/llm/chat`, {
+      const response = await fetch(getApiUrl("/llm/chat"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

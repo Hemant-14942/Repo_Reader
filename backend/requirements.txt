@@ -4,3 +4,4 @@ pydantic
 GitPython
 pathspec
 httpx2
+python-dotenv

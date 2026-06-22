@@ -14,6 +14,9 @@ out/
 # Environment files
 .env
 .env.*
+!.env.example
+!**/.env.example
+!**/.env.development
 
 
 # IDE / editor

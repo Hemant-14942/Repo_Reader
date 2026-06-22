@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.core.config import get_settings
 from app.api.health import router as health_router
 from app.api.ingest import router as ingest_router
 from app.api.llm import router as llm_router
@@ -12,9 +13,11 @@ app = FastAPI(
     description="Backend API for generating repository context from GitHub URLs.",
 )
 
+settings = get_settings()
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=list(settings.cors_origins),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
