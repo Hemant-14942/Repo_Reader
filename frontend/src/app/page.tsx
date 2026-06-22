@@ -7,7 +7,7 @@ import {
   CONTEXT_MODE_OPTIONS,
   resolveContextModeLabel,
 } from "@/lib/context-mode";
-import { getApiUrl } from "@/lib/config";
+import { getApiUrl, API_BASE_URL } from "@/lib/config";
 import { formatBytes } from "@/lib/format";
 import { loadRepoContext, saveRepoContext } from "@/lib/repo-context";
 import type { ContextMode, IngestResponse } from "@/lib/types";
@@ -184,7 +184,7 @@ export default function Home() {
           caughtError instanceof Error
             ? caughtError.message
             : "Something went wrong while processing the repository.",
-        suggestion: "Make sure the FastAPI server is running on http://localhost:8000.",
+        suggestion: `Make sure the Repo Reader backend is reachable at ${API_BASE_URL}.`,
         type: "backend_unreachable",
       });
     } finally {

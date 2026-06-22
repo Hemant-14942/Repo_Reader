@@ -87,7 +87,36 @@ CORS_ORIGINS=https://your-frontend.vercel.app
 
 Replace the URL with your real frontend domain. Render sets `$PORT` automatically — do not hardcode `8000` in production.
 
+**Important:** Set `CORS_ORIGINS` on Render to your Vercel URL, for example:
+
+```env
+CORS_ORIGINS=https://repo-reader-one.vercel.app
+```
+
+Without this, the browser will block API requests from your deployed frontend.
+
 You can also use the included `render.yaml` blueprint at the repo root.
+
+### Vercel (frontend)
+
+| Field | Value |
+| --- | --- |
+| Root Directory | `frontend` |
+| Framework | Next.js |
+
+Production API URL is set in `frontend/.env.production`:
+
+```env
+NEXT_PUBLIC_API_BASE_URL=https://repo-reader.onrender.com
+```
+
+`NEXT_PUBLIC_*` variables are baked in at **build time**. After changing them in Vercel Project Settings, trigger a **Redeploy**.
+
+Optional Vercel override:
+
+```env
+NEXT_PUBLIC_API_BASE_URL=https://repo-reader.onrender.com
+```
 
 ### Frontend + backend together
 

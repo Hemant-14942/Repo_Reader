@@ -17,6 +17,7 @@ out/
 !.env.example
 !**/.env.example
 !**/.env.development
+!**/.env.production
 
 
 # IDE / editor
